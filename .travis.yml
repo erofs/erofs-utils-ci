@@ -1,0 +1,110 @@
+language: c
+
+notifications:
+  email:
+    - if: branch = master OR branch = dev
+      recipients:
+        - hsiangkao@aol.com
+        - blucerlee@gmail.com
+        - gaoxiang25@huawei.com
+        - bluce.liguifu@huawei.com
+      on_success: never
+      on_failure: always
+
+    - if: branch = experimental
+      recipients:
+        - hsiangkao@aol.com
+        - blucerlee@gmail.com
+        - gaoxiang25@huawei.com
+        - bluce.liguifu@huawei.com
+      on_success: always
+      on_failure: always
+
+matrix:
+  fast_finish: true
+  include:
+    - name: Basic test (gcc)
+      os: linux
+      compiler: gcc
+      script: ./test_erofs-utils.sh
+
+    - name: Basic test (clang)
+      os: linux
+      compiler: clang
+      script: ./test_erofs-utils.sh
+
+    - name: Basic test (x86_64, 32-bit -m32, gcc)
+      arch: amd64
+      os: linux
+      compiler: gcc
+      addons:
+        apt:
+          packages:
+            - gcc-multilib
+            - libc6:i386
+      install: make -C lz4 MOREFLAGS=-m32
+      script: CFLAGS=-m32 CXXFLAGS=-m32 LDFLAGS=-m32 ./test_erofs-utils.sh
+
+    - name: Basic test (x86_64, 32-bit -mx32, gcc)
+      arch: amd64
+      os: linux
+      compiler: gcc
+      addons:
+        apt:
+          packages:
+            - gcc-multilib
+            - libc6:i386
+      install: make -C lz4 MOREFLAGS=-mx32
+      script: CFLAGS=-mx32 CXXFLAGS=-mx32 LDFLAGS=-mx32 ./test_erofs-utils.sh
+
+    - name: Basic test (x86_64, 32-bit -m32, clang)
+      arch: amd64
+      os: linux
+      compiler: clang
+      addons:
+        apt:
+          packages:
+            - gcc-multilib
+            - libc6:i386
+      install: make -C lz4 MOREFLAGS=-m32
+      script: CFLAGS=-m32 CXXFLAGS=-m32 LDFLAGS=-m32 ./test_erofs-utils.sh
+
+    - name: Basic test (x86_64, 32-bit -mx32, clang)
+      arch: amd64
+      os: linux
+      compiler: clang
+      addons:
+        apt:
+          packages:
+            - gcc-multilib
+            - libc6:i386
+      install: make -C lz4 MOREFLAGS=-mx32
+      script: CFLAGS=-mx32 CXXFLAGS=-mx32 LDFLAGS=-mx32 ./test_erofs-utils.sh
+
+    - name: Basic test (arm64, gcc)
+      arch: arm64
+      os: linux
+      compiler: gcc
+      addons:
+        apt:
+          packages:
+            - autoconf
+            - automake
+            - libtool
+      script: ./test_erofs-utils.sh
+
+    - name: Basic test (arm64, clang)
+      arch: arm64
+      os: linux
+      compiler: clang
+      addons:
+        apt:
+          packages:
+            - autoconf
+            - automake
+            - libtool
+      script: ./test_erofs-utils.sh
+
+before_install: git submodule update --remote --recursive
+install: make -C lz4
+
