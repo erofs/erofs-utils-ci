@@ -1,3 +1,7 @@
 [submodule "lz4"]
 	path = lz4
 	url = https://github.com/erofs/lz4.git
+[submodule "erofs-utils"]
+	path = erofs-utils
+	url = git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git
+	branch = dev
