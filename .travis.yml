@@ -26,11 +26,19 @@ matrix:
     - name: Basic test (gcc)
       os: linux
       compiler: gcc
+      addons:
+        apt:
+          packages:
+            - uuid-dev
       script: ./test_erofs-utils.sh
 
     - name: Basic test (clang)
       os: linux
       compiler: clang
+      addons:
+        apt:
+          packages:
+            - uuid-dev
       script: ./test_erofs-utils.sh
 
     - name: Basic test (x86_64, 32-bit -m32, gcc)
@@ -42,6 +50,7 @@ matrix:
           packages:
             - gcc-multilib
             - libc6:i386
+            - uuid-dev:i386
       install: make -C lz4 MOREFLAGS=-m32
       script: CFLAGS=-m32 CXXFLAGS=-m32 LDFLAGS=-m32 ./test_erofs-utils.sh
 
@@ -55,7 +64,7 @@ matrix:
             - gcc-multilib
             - libc6:i386
       install: make -C lz4 MOREFLAGS=-mx32
-      script: CFLAGS=-mx32 CXXFLAGS=-mx32 LDFLAGS=-mx32 ./test_erofs-utils.sh
+      script: CFLAGS=-mx32 CXXFLAGS=-mx32 LDFLAGS=-mx32 ./test_erofs-utils.sh --without-uuid
 
     - name: Basic test (x86_64, 32-bit -m32, clang)
       arch: amd64
@@ -66,6 +75,7 @@ matrix:
           packages:
             - gcc-multilib
             - libc6:i386
+            - uuid-dev:i386
       install: make -C lz4 MOREFLAGS=-m32
       script: CFLAGS=-m32 CXXFLAGS=-m32 LDFLAGS=-m32 ./test_erofs-utils.sh
 
@@ -79,7 +89,7 @@ matrix:
             - gcc-multilib
             - libc6:i386
       install: make -C lz4 MOREFLAGS=-mx32
-      script: CFLAGS=-mx32 CXXFLAGS=-mx32 LDFLAGS=-mx32 ./test_erofs-utils.sh
+      script: CFLAGS=-mx32 CXXFLAGS=-mx32 LDFLAGS=-mx32 ./test_erofs-utils.sh --without-uuid
 
     - name: Basic test (arm64, gcc)
       arch: arm64
@@ -91,6 +101,7 @@ matrix:
             - autoconf
             - automake
             - libtool
+            - uuid-dev
       script: ./test_erofs-utils.sh
 
     - name: Basic test (arm64, clang)
@@ -103,6 +114,7 @@ matrix:
             - autoconf
             - automake
             - libtool
+            - uuid-dev
       script: ./test_erofs-utils.sh
 
 before_install: git submodule update --remote --recursive
