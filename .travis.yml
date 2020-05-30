@@ -23,23 +23,45 @@ notifications:
 matrix:
   fast_finish: true
   include:
-    - name: Basic test (gcc)
+    - name: Basic test (gcc, --without-selinux)
       os: linux
       compiler: gcc
       addons:
         apt:
           packages:
             - uuid-dev
-      script: ./test_erofs-utils.sh
+            - libselinux1-dev
+      script: ./test_erofs-utils.sh --without-selinux
 
-    - name: Basic test (clang)
+    - name: Basic test (clang, --without-selinux)
       os: linux
       compiler: clang
       addons:
         apt:
           packages:
             - uuid-dev
-      script: ./test_erofs-utils.sh
+            - libselinux1-dev
+      script: ./test_erofs-utils.sh --without-selinux
+
+    - name: Basic test (gcc, --with-selinux)
+      os: linux
+      compiler: gcc
+      addons:
+        apt:
+          packages:
+            - uuid-dev
+            - libselinux1-dev
+      script: ./test_erofs-utils.sh --with-selinux
+
+    - name: Basic test (clang, --with-selinux)
+      os: linux
+      compiler: clang
+      addons:
+        apt:
+          packages:
+            - uuid-dev
+            - libselinux1-dev
+      script: ./test_erofs-utils.sh --with-selinux
 
     - name: Basic test (x86_64, 32-bit -m32, gcc)
       arch: amd64
