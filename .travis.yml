@@ -6,7 +6,7 @@ notifications:
       recipients:
         - hsiangkao@aol.com
         - blucerlee@gmail.com
-        - gaoxiang25@huawei.com
+        - hsiangkao@redhat.com
         - bluce.liguifu@huawei.com
       on_success: never
       on_failure: always
@@ -15,7 +15,7 @@ notifications:
       recipients:
         - hsiangkao@aol.com
         - blucerlee@gmail.com
-        - gaoxiang25@huawei.com
+        - hsiangkao@redhat.com
         - bluce.liguifu@huawei.com
       on_success: always
       on_failure: always
